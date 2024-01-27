@@ -6,7 +6,6 @@ const AuthPage = () => {
     <Flex minH={"100vh"} justifyContent={"center"} alignItems={"center"} px={4}>
       <Container
         maxW={"500px"}
-        padding={35}
         justifyContent={"center"}
         alignItems={"center"}
         display={"flex"}
