@@ -1,0 +1,8 @@
+.postFooter {
+  &__like {
+    color: rgb(107, 103, 103);
+    &--active {
+      color: red;
+    }
+  }
+}

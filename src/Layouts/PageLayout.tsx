@@ -27,11 +27,16 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
         bg="white"
         boxShadow={{ md: "0px 0px 10px rgba(0, 0, 0, 0.1)" }}
         borderRadius="md"
-        p={4}
-        position="relative" // Added for positioning the MenuButton
+        position="relative"
       >
         {pathname !== "/auth" && (
-          <Flex position="absolute" top="0" right="0" p="4">
+          <Flex
+            position="sticky"
+            top="0"
+            right="0"
+            display={"flex"}
+            justifyContent={"flex-end"}
+          >
             <MenuButton />
           </Flex>
         )}

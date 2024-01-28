@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import styles from "./PostBody.module.css"; // Import the CSS module
+import styles from "./PostBody.module.scss"; // Import the CSS module
 
 const PostBody = () => {
   const listItem = [
@@ -32,7 +32,7 @@ const PostBody = () => {
 
   return (
     <Flex direction={"column"}>
-      <Text>My favourite ice creams</Text>
+      <Text mb={2}>My favourite ice creams</Text>
       <Flex
         direction="column"
         align="center"
@@ -54,8 +54,8 @@ const PostBody = () => {
               py={2}
               borderRadius={8}
             >
-              <Text width="100%" textAlign="center">
-                {index + 1}. {item}
+              <Text width="100%" textAlign="center" userSelect={"none"}>
+                {listItem.length - index}. {item}
               </Text>
             </Box>
           );

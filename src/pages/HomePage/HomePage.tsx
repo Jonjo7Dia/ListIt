@@ -4,8 +4,8 @@ import FeedPosts from "../../components/FeedPosts/FeedPosts";
 const HomePage = () => {
   return (
     <Container>
-      <Flex flex={2} py={10} border={"1px solid red"}>
-        <Box width={"100%"}>
+      <Flex flex={2} padding={"none"}>
+        <Box width={"100%"} padding={"none"}>
           <FeedPosts />
         </Box>
       </Flex>
