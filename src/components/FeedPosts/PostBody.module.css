@@ -1,0 +1,14 @@
+.widthFull {
+  width: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.width70 {
+  width: 70%;
+  transition: width 0.3s ease-in-out;
+}
+
+.width50 {
+  width: 50%;
+  transition: width 0.3s ease-in-out;
+}

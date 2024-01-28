@@ -22,6 +22,7 @@ const MenuButtonComponent: React.FC = () => {
         aria-label="Options"
         icon={<IoMdMenu />}
         variant="outline"
+        border={"none"}
       />
       <MenuList>
         <MenuItem onClick={() => navTo("/")}>Home</MenuItem>
