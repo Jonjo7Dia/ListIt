@@ -9,7 +9,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
-import { MdOutlineModeComment } from "react-icons/md";
 import classes from "./PostFooter.module.scss";
 
 const PostFooter = () => {
@@ -48,8 +47,6 @@ const PostFooter = () => {
               liked ? ` ${classes["postFooter__like--active"]}` : ""
             }`}
           />
-
-          <MdOutlineModeComment />
         </Box>
         <Text fontWeight={600} userSelect={"none"}>
           {likes} likes

@@ -24,8 +24,11 @@ const FeedPosts = () => {
           <VStack key={idx} gap={4} alignItems={"flex-start"} mb={10}>
             <Flex gap="2">
               <SkeletonCircle size="10" />
-              <VStack gap={2} alignItems={"flex-start"}>
-                <Skeleton height="10px" w={"100px"} />
+              <VStack
+                gap={2}
+                alignItems={"flex-start"}
+                justifyContent={"center"}
+              >
                 <Skeleton height="10px" w={"100px"} />
               </VStack>
             </Flex>
