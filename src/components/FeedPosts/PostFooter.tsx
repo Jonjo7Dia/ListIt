@@ -41,6 +41,7 @@ const PostFooter = () => {
           display={"flex"}
           flexDirection={"row"}
           gap={"2"}
+          userSelect={"none"}
         >
           <FaHeart
             className={`${classes["postFooter__like"]}${
