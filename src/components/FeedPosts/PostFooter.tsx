@@ -64,7 +64,7 @@ const PostFooter = () => {
         <InputGroup>
           <Input variant={"flushed"} placeholder={"Add a comment..."} />
           <InputRightElement>
-            <Button font-size={14} bg={"transparent"}>
+            <Button fontSize={14} bg={"transparent"}>
               Post
             </Button>
           </InputRightElement>
