@@ -1,10 +1,18 @@
-import { Button, Container, Flex, FormControl, Input } from "@chakra-ui/react";
+import {
+  Button,
+  Container,
+  Flex,
+  FormControl,
+  Input,
+  Checkbox,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CreatePage = () => {
   const [listName, setListName] = useState<string>("");
   const [lists, setLists] = useState<string[]>([""]);
+  const [makePublic, setMakePublic] = useState(false);
   const navigate = useNavigate();
 
   const handleItemChange = (value: string, index: number) => {
@@ -46,6 +54,7 @@ const CreatePage = () => {
     const listData = {
       listName: listName,
       listItems: filteredLists,
+      isPublic: makePublic,
     };
 
     console.log(listData);
@@ -80,7 +89,15 @@ const CreatePage = () => {
             borderStyle={item === "" ? "dashed" : "solid"}
           />
         ))}
-
+        <Checkbox
+          checked={makePublic}
+          color={"grey"}
+          onChange={() => {
+            setMakePublic(!makePublic);
+          }}
+        >
+          Make Public
+        </Checkbox>
         <Button colorScheme="blue" onClick={submitHandler}>
           Submit List
         </Button>
