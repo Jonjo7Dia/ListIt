@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import styles from "./PostBody.module.css"; // Import the CSS module
 
