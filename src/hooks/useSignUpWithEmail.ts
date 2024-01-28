@@ -9,11 +9,14 @@ interface UserInputs {
 }
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import useShowToasts from "./useShowToasts";
+import useAuthStore from "../store/authStore";
+
 const useSignUpWithEmail = () => {
   const [createUserWithEmailAndPassword, , loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const showToast = useShowToasts();
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const loginUser = useAuthStore((state) => state.login);
   const signup = async (inputs: UserInputs) => {
     if (
       !inputs.email ||
@@ -52,6 +55,7 @@ const useSignUpWithEmail = () => {
         };
         await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);
         localStorage.setItem("user-info", JSON.stringify(userDoc));
+        loginUser(userDoc);
       }
     } catch (error) {
       if (error instanceof Error) {
