@@ -26,7 +26,6 @@ const useGetUserProfile = (username: string) => {
           userDoc = doc.data();
         });
         setUserProfile(userDoc);
-        console.log(userDoc);
       } catch (error) {
         const err = error as Error;
         showToast("Error", err.message, "error");
