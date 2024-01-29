@@ -10,9 +10,11 @@ import {
 import { IoMdMenu } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
+import useAuthStore from "../../store/authStore";
 
 const MenuButtonComponent: React.FC = () => {
   const navigate = useNavigate();
+  const authUser = useAuthStore((state) => state.user);
   const { handleLogout, loading } = useLogout();
   const navTo = (navPath: string) => {
     if (navPath == "/auth") {
@@ -32,7 +34,10 @@ const MenuButtonComponent: React.FC = () => {
       />
       <MenuList>
         <MenuItem onClick={() => navTo("/")}>Home</MenuItem>
-        <MenuItem onClick={() => navTo("/profile")}>Profile</MenuItem>
+        <MenuItem onClick={() => navTo("/search")}>Search</MenuItem>
+        <MenuItem onClick={() => navTo(`/${authUser.username}`)}>
+          Profile
+        </MenuItem>
         <MenuItem onClick={() => navTo("/settings")}>Settings</MenuItem>
         <Button
           onClick={() => navTo("/auth")}
