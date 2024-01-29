@@ -2,8 +2,6 @@ import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import MenuButton from "../components/MenuButton/MenuButton";
 import { useLocation } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/firebase";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -11,8 +9,7 @@ interface PageLayoutProps {
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   const { pathname } = useLocation();
-  const [user] = useAuthState(auth);
-  const canRenderMenuButton = pathname !== "/auth" && user;
+  const canRenderMenuButton = pathname !== "/auth";
   return (
     <Flex
       direction="column"

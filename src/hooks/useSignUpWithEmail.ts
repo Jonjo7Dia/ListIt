@@ -1,4 +1,11 @@
-import { doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { auth, firestore } from "../firebase/firebase";
 
 interface UserInputs {
@@ -17,6 +24,7 @@ const useSignUpWithEmail = () => {
   const showToast = useShowToasts();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const loginUser = useAuthStore((state) => state.login);
+
   const signup = async (inputs: UserInputs) => {
     if (
       !inputs.email ||
@@ -32,6 +40,22 @@ const useSignUpWithEmail = () => {
       return;
     }
 
+    const usersRef = collection(firestore, "users");
+
+    const qUsername = query(usersRef, where("username", "==", inputs.username));
+    const qEmail = query(usersRef, where("email", "==", inputs.email));
+    const querySnapshotEmail = await getDocs(qEmail);
+    const querySnapshotUsername = await getDocs(qUsername);
+
+    if (!querySnapshotEmail.empty) {
+      showToast("Error", "Email already exists", "error");
+      return;
+    }
+
+    if (!querySnapshotUsername.empty) {
+      showToast("Error", "Username already exists", "error");
+      return;
+    }
     try {
       const newUser = await createUserWithEmailAndPassword(
         inputs.email,
@@ -46,6 +70,7 @@ const useSignUpWithEmail = () => {
           uid: newUser.user.uid,
           email: inputs.email,
           username: inputs.username,
+          username_lower: inputs.username.toLowerCase(),
           bio: "",
           profilePicUrl: "",
           followers: [],
