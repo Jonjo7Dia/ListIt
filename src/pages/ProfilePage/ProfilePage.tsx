@@ -13,6 +13,7 @@ import FeedPost from "../../components/FeedPosts/FeedPost";
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import useGetUserProfile from "../../hooks/useGetUserProfile";
 import useAuthStore from "../../store/authStore";
+import useFollowUser from "../../hooks/useFollowUser";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -21,10 +22,17 @@ const ProfilePage = () => {
   const { isLoading, userProfile } = useGetUserProfile(
     username ? username : ""
   );
+
   const userNotFound = !isLoading && !userProfile;
+  const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(
+    userProfile?.uid
+  );
+
+  if (userNotFound) return <UserNotFound />;
+
   const isOwner =
     authUser && userProfile && authUser.username == userProfile.username;
-  if (userNotFound) return <UserNotFound />;
+
   const createHandler = () => {
     navigate("/create");
   };
@@ -47,6 +55,15 @@ const ProfilePage = () => {
             size={"2xl"}
           />
           <Text fontWeight={"bold"}>{userProfile.username}</Text>
+          {!isOwner && (
+            <Button
+              fontSize={12}
+              onClick={handleFollowUser}
+              isLoading={isUpdating}
+            >
+              {isFollowing ? "Unfollow" : "Follow"}
+            </Button>
+          )}
         </Flex>
       )}
       <Flex direction={"column"} px={4}>

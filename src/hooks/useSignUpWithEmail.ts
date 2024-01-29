@@ -6,17 +6,19 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { auth, firestore } from "../firebase/firebase";
+import { auth, firestore, storage } from "../firebase/firebase";
 
 interface UserInputs {
   email: string;
   password: string;
   username: string;
   confirmPassword: string;
+  image: File;
 }
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import useShowToasts from "./useShowToasts";
 import useAuthStore from "../store/authStore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const useSignUpWithEmail = () => {
   const [createUserWithEmailAndPassword, , loading, error] =
@@ -56,6 +58,7 @@ const useSignUpWithEmail = () => {
       showToast("Error", "Username already exists", "error");
       return;
     }
+
     try {
       const newUser = await createUserWithEmailAndPassword(
         inputs.email,
@@ -65,14 +68,25 @@ const useSignUpWithEmail = () => {
         showToast("Error", error.message, "error");
         return;
       }
+
       if (newUser) {
+        let profilePicUrl = "";
+
+        if (inputs.image) {
+          const imageRef = ref(
+            storage,
+            `profilePictures/${newUser.user.uid}/${inputs.image.name}`
+          );
+          const snapshot = await uploadBytes(imageRef, inputs.image);
+          profilePicUrl = await getDownloadURL(snapshot.ref);
+        }
         const userDoc = {
           uid: newUser.user.uid,
           email: inputs.email,
           username: inputs.username,
           username_lower: inputs.username.toLowerCase(),
           bio: "",
-          profilePicUrl: "",
+          profilePicUrl: profilePicUrl,
           followers: [],
           following: [],
           posts: [],
