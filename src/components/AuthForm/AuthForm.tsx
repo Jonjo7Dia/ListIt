@@ -6,8 +6,8 @@ import Signup from "./Signup";
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
 
-  const setLoginState = (logingState: boolean) => {
-    setIsLogin(logingState);
+  const setLoginState = (loginState: boolean) => {
+    setIsLogin(loginState);
   };
 
   return (

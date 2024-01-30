@@ -11,7 +11,8 @@ import { auth } from "./firebase/firebase";
 
 function App() {
   const [authUser] = useAuthState(auth);
-  const isLoggedIn = authUser || localStorage.getItem("user-info") !== null;
+  const isLoggedIn = authUser != null;
+  console.log(authUser);
   return (
     <PageLayout>
       <Routes>

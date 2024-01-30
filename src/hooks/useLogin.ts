@@ -9,6 +9,7 @@ interface LoginInputs {
   password: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useLogin = () => {
   const showToast = useShowToasts();
   const [signInWithEmailAndPassword, , loading, error] =

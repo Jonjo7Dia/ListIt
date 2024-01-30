@@ -84,7 +84,7 @@ const useSignUpWithEmail = () => {
           uid: newUser.user.uid,
           email: inputs.email,
           username: inputs.username,
-          username_lower: inputs.username.toLowerCase(),
+          username_lower: inputs.username.toLowerCase().replace(/ /g, "-"),
           bio: "",
           profilePicUrl: profilePicUrl,
           followers: [],

@@ -38,7 +38,7 @@ const PostBody: React.FC<PostBodyProps> = ({ listName, listItems }) => {
         p={4}
         cursor="pointer"
       >
-        {listItems.map((item, index) => {
+        {[...listItems].reverse().map((item, index) => {
           if (!showAll && index >= 3) return null;
           return (
             <Box

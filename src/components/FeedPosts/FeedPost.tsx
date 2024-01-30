@@ -13,10 +13,9 @@ interface List {
   comments: string[];
   createdAt: Date;
   createdBy: string;
-  profilePicUrl: string;
-  username: string;
+  profilePicUrl: string; // Add this property
+  username: string; // Add this property
 }
-
 // Define the FeedPostProps interface
 interface FeedPostProps {
   list: List;

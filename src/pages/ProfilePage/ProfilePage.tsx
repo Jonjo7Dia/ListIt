@@ -12,26 +12,22 @@ import {
 // import FeedPost from "../../components/FeedPosts/FeedPost";
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import useGetUserProfile from "../../hooks/useGetUserProfile";
-import useAuthStore from "../../store/authStore";
 import useFollowUser from "../../hooks/useFollowUser";
+import FeedPost from "../../components/FeedPosts/FeedPost";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { username } = useParams();
-  const authUser = useAuthStore((state) => state.user);
-  const { isLoading, userProfile } = useGetUserProfile(
+  const { isLoading, userProfile, listItems, isOwner } = useGetUserProfile(
     username ? username : ""
   );
-
   const userNotFound = !isLoading && !userProfile;
   const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(
     userProfile?.uid
   );
 
   if (userNotFound) return <UserNotFound />;
-
-  const isOwner =
-    authUser && userProfile && authUser.username == userProfile.username;
+  console.log(listItems);
 
   const createHandler = () => {
     navigate("/create");
@@ -74,8 +70,9 @@ const ProfilePage = () => {
             </Button>
           )}
         </Flex>
-        {/* <FeedPost />
-        <FeedPost /> */}
+        {listItems?.map((list, index) => (
+          <FeedPost list={list} key={index} />
+        ))}
       </Flex>
     </Container>
   );
