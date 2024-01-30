@@ -36,6 +36,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
             right="0"
             display={"flex"}
             justifyContent={"flex-end"}
+            zIndex={1000}
           >
             <MenuButton />
           </Flex>
