@@ -8,10 +8,15 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useCreateList from "../../hooks/useCreateList";
+import useAuthStore from "../../store/authStore";
 
 const CreatePage = () => {
   const [listName, setListName] = useState<string>("");
   const [lists, setLists] = useState<string[]>([""]);
+  const authUser = useAuthStore((state) => state.user);
+
+  const { isLoading, handleCreateList } = useCreateList();
   const [makePublic, setMakePublic] = useState(false);
   const navigate = useNavigate();
 
@@ -37,7 +42,7 @@ const CreatePage = () => {
     });
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (!listName || listName.length === 0) {
       alert("You must give a list name");
       return;
@@ -55,10 +60,17 @@ const CreatePage = () => {
       listName: listName,
       listItems: filteredLists,
       isPublic: makePublic,
+      likes: [],
+      comments: [],
+      createdAt: new Date(), // Set the current date as creation date
+      createdBy: authUser.uid, // Set the creator ID
     };
 
-    console.log(listData);
-    navigate("/:username");
+    const success = await handleCreateList(listData);
+
+    if (success) {
+      navigate(`/${authUser.username}`);
+    } // Call the function to create the list
   };
 
   const backHandler = () => {
@@ -66,7 +78,7 @@ const CreatePage = () => {
       alert("You have unsaved changes");
       return;
     }
-    navigate("/:username");
+    navigate(`/${authUser.username}`);
   };
 
   return (
@@ -98,7 +110,11 @@ const CreatePage = () => {
         >
           Make Public
         </Checkbox>
-        <Button colorScheme="blue" onClick={submitHandler}>
+        <Button
+          colorScheme="blue"
+          onClick={submitHandler}
+          isLoading={isLoading}
+        >
           Submit List
         </Button>
       </FormControl>
