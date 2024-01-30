@@ -33,7 +33,7 @@ const PostFooter: React.FC<PostFooterProps> = ({
       setLikes(likes + 1);
     }
   };
-
+  console.log(createdAt);
   return (
     <>
       <Flex
