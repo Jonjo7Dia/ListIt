@@ -27,7 +27,6 @@ const ProfilePage = () => {
   );
 
   if (userNotFound) return <UserNotFound />;
-  console.log(listItems);
 
   const createHandler = () => {
     navigate("/create");

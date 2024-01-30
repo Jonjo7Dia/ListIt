@@ -5,7 +5,6 @@ interface PostHeaderProps {
   createdBy: string;
 }
 const PostHeader: React.FC<PostHeaderProps> = ({ profilePic, createdBy }) => {
-  console.log(profilePic);
   return (
     <Flex
       justifyContent={"space-between"}
