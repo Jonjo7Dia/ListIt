@@ -11,9 +11,19 @@ import {
 import { FaHeart } from "react-icons/fa";
 import classes from "./PostFooter.module.scss";
 
-const PostFooter = () => {
+interface PostFooterProps {
+  postLikes: string[];
+  comments: string[];
+  createdAt: Date;
+}
+
+const PostFooter: React.FC<PostFooterProps> = ({
+  postLikes,
+  comments,
+  createdAt,
+}) => {
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState(1000);
+  const [likes, setLikes] = useState(postLikes ? postLikes.length : 0);
   const likedHandler = () => {
     if (liked) {
       setLiked(false);
@@ -23,6 +33,7 @@ const PostFooter = () => {
       setLikes(likes + 1);
     }
   };
+  console.log(createdAt);
 
   return (
     <>
@@ -53,7 +64,7 @@ const PostFooter = () => {
         </Text>
       </Flex>
       <Flex fontSize={14} color={"grey"}>
-        <Text>View all 1,000 comments</Text>
+        <Text>View all {comments.length} comments</Text>
       </Flex>
       <Flex
         alignItems={"center"}

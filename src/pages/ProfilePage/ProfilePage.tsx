@@ -9,7 +9,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import FeedPost from "../../components/FeedPosts/FeedPost";
+// import FeedPost from "../../components/FeedPosts/FeedPost";
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import useGetUserProfile from "../../hooks/useGetUserProfile";
 import useAuthStore from "../../store/authStore";
@@ -74,8 +74,8 @@ const ProfilePage = () => {
             </Button>
           )}
         </Flex>
-        <FeedPost />
-        <FeedPost />
+        {/* <FeedPost />
+        <FeedPost /> */}
       </Flex>
     </Container>
   );

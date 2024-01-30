@@ -7,16 +7,35 @@ import {
   Box,
 } from "@chakra-ui/react";
 import FeedPost from "./FeedPost";
+import useGetFeedLists from "../../hooks/useGetFeedLists";
 import { useEffect, useState } from "react";
 
+interface List {
+  listName: string;
+  listItems: string[];
+  isPublic: boolean;
+  likes: string[];
+  comments: string[];
+  createdAt: Date;
+  createdBy: string;
+  profilePicUrl: string;
+  username: string;
+}
 const FeedPosts = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
+  const { isLoading, handleFetchFeedList } = useGetFeedLists();
+  const [posts, setPosts] = useState<List[]>([]);
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    const fetchFeedList = async () => {
+      const feedLists = await handleFetchFeedList();
+      if (!isLoading) {
+        setPosts(feedLists); // Console log the fetched feed lists
+      }
+    };
+
+    fetchFeedList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <Container width={"100%"} py={4} px={2}>
       {isLoading &&
@@ -39,11 +58,9 @@ const FeedPosts = () => {
         ))}
       {!isLoading && (
         <>
-          <FeedPost />
-          <FeedPost />
-          <FeedPost />
-          <FeedPost />
-          <FeedPost />
+          {posts.map((post: List, index: number) => (
+            <FeedPost key={index} list={post} />
+          ))}
         </>
       )}
     </Container>

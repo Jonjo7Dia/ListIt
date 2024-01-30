@@ -1,6 +1,11 @@
 import { Avatar, Flex, Box } from "@chakra-ui/react";
-import profilepic from "/profilepic.png";
-const PostHeader = () => {
+
+interface PostHeaderProps {
+  profilePic: string;
+  createdBy: string;
+}
+const PostHeader: React.FC<PostHeaderProps> = ({ profilePic, createdBy }) => {
+  console.log(profilePic);
   return (
     <Flex
       justifyContent={"space-between"}
@@ -9,9 +14,9 @@ const PostHeader = () => {
       marginBottom={4}
     >
       <Flex alignItems={"center"} gap={2}>
-        <Avatar src={profilepic} size={"sm"} />
+        <Avatar src={profilePic} size={"sm"} />
         <Flex fontSize={14} fontWeight={"bold"} gap={"2"}>
-          jonoHjelmstrom
+          {createdBy}
           <Box color={"gray.500"}>∙ 1w</Box>
         </Flex>
       </Flex>

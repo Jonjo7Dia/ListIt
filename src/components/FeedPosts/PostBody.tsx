@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import styles from "./PostBody.module.scss"; // Import the CSS module
-
-const PostBody = () => {
-  const listItem = [
-    "vanilla",
-    "strawberry",
-    "chocolate",
-    "banana",
-    "raspberry",
-  ];
-
+interface PostBodyProps {
+  listName: string;
+  listItems: string[];
+}
+const PostBody: React.FC<PostBodyProps> = ({ listName, listItems }) => {
   const [showAll, setShowAll] = useState(false);
 
   const toggleShowAll = () => setShowAll(!showAll);
@@ -32,7 +27,7 @@ const PostBody = () => {
 
   return (
     <Flex direction={"column"}>
-      <Text mb={2}>My favourite ice creams</Text>
+      <Text mb={2}>{listName}</Text>
       <Flex
         direction="column"
         align="center"
@@ -43,7 +38,7 @@ const PostBody = () => {
         p={4}
         cursor="pointer"
       >
-        {listItem.map((item, index) => {
+        {listItems.map((item, index) => {
           if (!showAll && index >= 3) return null;
           return (
             <Box
@@ -55,7 +50,7 @@ const PostBody = () => {
               borderRadius={8}
             >
               <Text width="100%" textAlign="center" userSelect={"none"}>
-                {listItem.length - index}. {item}
+                {listItems.length - index}. {item}
               </Text>
             </Box>
           );
